@@ -64,7 +64,7 @@ function prepEntity(entity) {
         entity["colour"] = "#FF0000";
     }
     if (!entity["radius"]) {
-        entity["radius"] = 50;
+        entity["radius"] = 25;
     }
     return entity;
 }
@@ -125,9 +125,9 @@ function addEntity(entity, data) {
     world[entity] = data;
     // drawNextFrame(); // (but should we?)
     if (wscounter) {
-        let new_obj = {}
-        obj[entity] = data;
-        socket.send(JSON.stringify(new_obj))
+        let new_obj = {};
+        new_obj[entity] = data;
+        socket.send(JSON.stringify(new_obj));
     }
     //XXX: Send a XHTML Request that updates the entity you just modified!
     
@@ -236,16 +236,20 @@ mouse = (function() {
 
 // Add the application specific mouse listeners!
 //XXX: TODO Make these prettier!
+
+// reference: https://css-tricks.com/snippets/javascript/random-hex-color/
 mouse.mousedowners.push(function(x,y,clicked,e) {
-    addEntityWithoutName({'x':x,'y':y,'colour':'blue'});
+    var randomColor = Math.floor(Math.random()*16777215).toString(16);
+
+    addEntityWithoutName({'x':x,'y':y,'colour':'#'+randomColor});
 });
 
 mouse.mouseuppers.push(function(x,y,clicked,e) {
-    addEntityWithoutName({'x':x,'y':y,'colour':'red'});
+    addEntityWithoutName({'x':x,'y':y,'colour':'#'+randomColor});
 });
 
 mouse.mousedraggers.push(function(x,y,clicked,e) {
-    addEntityWithoutName({'x':x,'y':y,'colour':'green',
+    addEntityWithoutName({'x':x,'y':y,'colour':'#'+randomColor,
                           'radius':10});
 });
 
@@ -260,7 +264,7 @@ function wsSetup() {
     socket = new WebSocket(url);
     socket.onopen = function() {
         //XXX: TODO What are you going to do here?
-        wscounter = 1
+        wscounter = 1;
         update();
     };
     socket.onerror = function(msg) {
@@ -272,7 +276,7 @@ function wsSetup() {
             //XXX: TODO What are you going to do here?     
             new_world = JSON.parse(msg.data);
             for (var en in new_world) {
-                world[en] = new_world[en]
+                world[en] = new_world[en];
             }
             drawNextFrame();
 
