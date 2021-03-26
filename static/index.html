@@ -267,7 +267,16 @@ function wsSetup() {
     socket.onopen = function() {
         //XXX: TODO What are you going to do here?
         wscounter = 1;
-        update();
+        fetch("/world").then((response) => {
+            //promise: get the whole world when begin (on open)
+            response.json().then((content) => {
+                //assign our world in local
+                world = content;
+                //render
+                drawNextFrame();
+            });
+        });
+        // drawFrame();
     };
     socket.onerror = function(msg) {
         debug("WebSocket Error:" + msg.data);
