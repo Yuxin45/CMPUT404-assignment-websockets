@@ -260,6 +260,8 @@ function wsSetup() {
     socket = new WebSocket(url);
     socket.onopen = function() {
         //XXX: TODO What are you going to do here?
+        wscounter = 1
+        update();
     };
     socket.onerror = function(msg) {
         debug("WebSocket Error:" + msg.data);
@@ -267,7 +269,13 @@ function wsSetup() {
     socket.onmessage = function(msg) {  
         try {
             debug("WebSocket Recv:" + msg.data);
-            //XXX: TODO What are you going to do here?            
+            //XXX: TODO What are you going to do here?     
+            new_world = JSON.parse(msg.data);
+            for (var en in new_world) {
+                world[en] = new_world[en]
+            }
+            drawNextFrame();
+
         } catch (e) {
             alert("socket on message: " + e);
         }

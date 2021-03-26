@@ -79,7 +79,7 @@ def send_all(msg):
         client.put(msg)
 
 def send_all_json(obj):
-    send_all(json.dump(obj))
+    send_all(json.dumps(obj))
 
 
 def set_listener( entity, data ):
@@ -100,11 +100,12 @@ def read_ws(ws,client):
             msg = ws.receive()
             print("WS receive: %s" %msg)
             if (msg is not None):
-                packet = json.laod(msg)
+                packet = json.loads(msg)
                 for cur_entity in packet: 
                     # for each entity, make the myWorld updates
-                    myWorld.set(entity, packet[cur_entity])
+                    myWorld.set(cur_entity, packet[cur_entity])
                     # update each entity
+                send_all_json(packet)
             else:
                 # if none then don't update
                 break
