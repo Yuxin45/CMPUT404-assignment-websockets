@@ -59,7 +59,7 @@ class World:
     def world(self):
         return self.space
 
-
+# reference: https://github.com/abramhindle/WebSocketsExamples/blob/master/chat.py
 class Client:
     def __init__(self):
         self.queue = queue.Queue()
@@ -98,7 +98,7 @@ def read_ws(ws,client):
     try:
         while True:
             msg = ws.receive()
-            print("WS receive: %s" %msg)
+            # print("WS receive: %s" %msg)
             if (msg is not None):
                 packet = json.loads(msg)
                 for cur_entity in packet: 

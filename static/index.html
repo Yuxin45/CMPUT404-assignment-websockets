@@ -245,10 +245,12 @@ mouse.mousedowners.push(function(x,y,clicked,e) {
 });
 
 mouse.mouseuppers.push(function(x,y,clicked,e) {
+    var randomColor = Math.floor(Math.random()*16777215).toString(16);
     addEntityWithoutName({'x':x,'y':y,'colour':'#'+randomColor});
 });
 
 mouse.mousedraggers.push(function(x,y,clicked,e) {
+    var randomColor = Math.floor(Math.random()*16777215).toString(16);
     addEntityWithoutName({'x':x,'y':y,'colour':'#'+randomColor,
                           'radius':10});
 });
