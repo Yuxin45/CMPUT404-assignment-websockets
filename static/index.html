@@ -54,7 +54,7 @@ function drawCircle(context,entity) {
         //moveTo(x,y);
         fillStyle = entity["colour"];
         strokeStyle = fillStyle;
-        arc(x, y, (entity["radius"])?entity["radius"]:50, 0, 2.0 * Math.PI, false);  
+        arc(x, y, (entity["radius"])?entity["radius"]:25, 0, 2.0 * Math.PI, false);  
         stroke();                                
     }
 }
@@ -72,7 +72,7 @@ function prepEntity(entity) {
 function clearFrame() {
     with(context) {
 	moveTo(0,0);
-	fillStyle = "#000";
+	fillStyle = "#f9d1d1";
 	fillRect(0,0,W,H);
     }
 
@@ -123,8 +123,14 @@ function getPosition(e) {
 
 function addEntity(entity, data) {
     world[entity] = data;
-    drawNextFrame(); // (but should we?)
+    // drawNextFrame(); // (but should we?)
+    if (wscounter) {
+        let new_obj = {}
+        obj[entity] = data;
+        socket.send(JSON.stringify(new_obj))
+    }
     //XXX: Send a XHTML Request that updates the entity you just modified!
+    
 }
 var counter = 0;
 function addEntityWithoutName(data) {
