@@ -22,7 +22,7 @@
     "/>
     <script src="json2.js"></script>
   </head> 
-  <body bgcolor="white" height="100%" width="100%"> 
+  <body bgcolor="#f9d1d1" height="100%" width="100%"> 
     <div id="debug"></div>
     <canvas id="c" width="100%" height="100%" style="-webkit-tap-highlight-color: transparent;"></canvas> 
 
@@ -40,7 +40,7 @@ function debug(str) {
     var debugDiv = document.getElementById('debug');
     debugDiv.innerHTML = "" + str;
 }
-debug("Test");
+// debug("Test");
 
 world = {};
 
@@ -279,11 +279,11 @@ function wsSetup() {
         // drawFrame();
     };
     socket.onerror = function(msg) {
-        debug("WebSocket Error:" + msg.data);
+        // debug("WebSocket Error:" + msg.data);
     };
     socket.onmessage = function(msg) {  
         try {
-            debug("WebSocket Recv:" + msg.data);
+            // debug("WebSocket Recv:" + msg.data);
             //XXX: TODO What are you going to do here?     
             new_world = JSON.parse(msg.data);
             for (var en in new_world) {

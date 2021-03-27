@@ -133,7 +133,7 @@ def subscribe_socket(ws):
         print("WS Error %s" %e)
 
     finally:
-        clients.remove(client)
+        clients.rve(client)
         gevent.kill(g) # kill read thread
 
 
